@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Veo Watermark Remover — Free, No Upload | Remove Gemini Video Logo</title>
+<meta name="description" content="Free Veo 3 & Gemini video watermark remover. Auto-detects and removes the Veo logo from your AI clips right in your browser — no upload, no sign-up, audio and resolution kept.">
+<link rel="canonical" href="https://veowatermark-remover.vercel.app/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="google-site-verification" content="3zWbSiB7K9Porg3W7oJ8WoSO3berZJZtEKPvGEuKRv0" />
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c0e'/%3E%3Crect x='5' y='5' width='22' height='22' rx='5' fill='none' stroke='%23c6ff3d' stroke-width='3'/%3E%3Crect x='17' y='17' width='6' height='6' rx='1.5' fill='%23c6ff3d'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Clearframe">
+<meta property="og:url" content="https://veowatermark-remover.vercel.app/">
+<meta property="og:title" content="Veo Watermark Remover — Free & 100% in your browser">
+<meta property="og:description" content="Remove the Veo / Gemini logo from your AI video clips. No upload, no sign-up, audio kept.">
+<meta property="og:image" content="https://veowatermark-remover.vercel.app/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Veo Watermark Remover — Free & 100% in your browser">
+<meta name="twitter:description" content="Remove the Veo / Gemini logo from your AI video clips. No upload, no sign-up, audio kept.">
+<meta name="twitter:image" content="https://veowatermark-remover.vercel.app/og.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Clearframe — Veo Watermark Remover","url":"https://veowatermark-remover.vercel.app/","applicationCategory":"MultimediaApplication","operatingSystem":"Any (desktop Chrome, Edge, Firefox)","browserRequirements":"Requires JavaScript and MediaRecorder support","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based tool that removes the visible Veo / Gemini watermark from AI-generated video clips without uploading them."},
+{"@type":"HowTo","name":"How to remove the Veo watermark from a video","step":[
+{"@type":"HowToStep","name":"Upload your clip","text":"Drop your Veo or Gemini MP4, MOV or WebM into the tool. It is opened locally and never uploaded."},
+{"@type":"HowToStep","name":"Auto-detect the watermark","text":"The tool samples frames and finds the static logo automatically, or you drag a box over it."},
+{"@type":"HowToStep","name":"Remove and download","text":"Click Remove watermark, compare before and after, then download the clean video."}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is this Veo watermark remover free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is completely free with no sign-up, credits or limits, because all processing runs in your browser."}},
+{"@type":"Question","name":"Is my video uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The video is read and processed locally on your device and never sent to a server."}},
+{"@type":"Question","name":"Does it work with Veo 3 and Gemini videos?","acceptedAnswer":{"@type":"Answer","text":"Yes. It auto-detects the Veo text watermark and the Gemini sparkle logo in the corner, and has presets for both."}},
+{"@type":"Question","name":"Does it remove SynthID?","acceptedAnswer":{"@type":"Answer","text":"No. It only removes the visible corner logo. Google's invisible SynthID watermark stays in the video."}},
+{"@type":"Question","name":"What format is the output?","acceptedAnswer":{"@type":"Answer","text":"MP4 in recent Chrome and Edge, otherwise WebM, at the original resolution with audio kept."}}]}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0c0e;--panel:#121418;--panel2:#181b20;--line:#262a31;--text:#e9ecef;--muted:#8b929c;
+  --accent:#c6ff3d;--accent-ink:#0b0c0e;--danger:#ff6b5b;--radius:14px;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Space Grotesk',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:20px}
+.logo i{width:22px;height:22px;border:2px solid var(--accent);border-radius:6px;position:relative}
+.logo i::after{content:"";position:absolute;right:2px;bottom:2px;width:6px;height:6px;background:var(--accent);border-radius:2px}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:20px}
+nav a:hover{color:var(--text)}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.tag b{color:var(--accent);font-weight:600}
+.hero{padding:40px 0 28px;text-align:center}
+.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.02;letter-spacing:-.035em;margin:14px 0 14px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);max-width:600px;margin:0 auto;font-size:17px;line-height:1.55}
+.station{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;margin:26px 0 60px}
+.station-top{display:flex;justify-content:space-between;align-items:center;padding:2px 4px 14px;gap:10px;flex-wrap:wrap}
+.drop{display:block;width:100%;border:1.5px dashed #343944;border-radius:var(--radius);padding:64px 20px;text-align:center;cursor:pointer;transition:.2s;background:var(--panel2)}
+.drop:hover,.drop.over{border-color:var(--accent);background:#1b2014}
+.drop .big{font-size:20px;font-weight:600;margin:14px 0 6px}
+.drop .sub{color:var(--muted);font-size:14px}
+.drop svg{display:block;margin:0 auto;width:44px;height:44px;color:var(--accent)}
+.drop *{pointer-events:none}
+.drop:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lock{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);margin-top:18px}
+.hidden{display:none!important}
+.work{display:grid;grid-template-columns:1fr 300px;gap:16px}
+@media(max-width:820px){.work{grid-template-columns:1fr}}
+.stage{position:relative;background:#000;border-radius:var(--radius);overflow:hidden;line-height:0;user-select:none;touch-action:none}
+.stage canvas,.stage video{width:100%;height:auto;display:block}
+.box{position:absolute;border:2px solid var(--accent);background:rgba(198,255,61,.12);box-shadow:0 0 0 9999px rgba(0,0,0,.35);cursor:move;border-radius:4px}
+.box .h{position:absolute;right:-7px;bottom:-7px;width:14px;height:14px;background:var(--accent);border-radius:3px;cursor:nwse-resize}
+.box .lbl{position:absolute;left:0;top:-22px;font:600 10px var(--mono);letter-spacing:.08em;background:var(--accent);color:var(--accent-ink);padding:3px 6px;border-radius:3px;line-height:1;white-space:nowrap}
+.side{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.card h3{margin:0 0 10px;font-size:13px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kv{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;color:var(--muted)}
+.kv b{color:var(--text);font-weight:500;font-family:var(--mono);font-size:13px}
+.seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.seg button{background:#0f1114;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:9px 4px;font:500 13px var(--sans);cursor:pointer}
+.seg button.on{border-color:var(--accent);color:var(--text);background:#1b2014}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;border:0;border-radius:11px;padding:14px 16px;font:700 15px var(--sans);cursor:pointer;background:var(--accent);color:var(--accent-ink);text-decoration:none}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.hint{font-size:12.5px;color:var(--muted);line-height:1.5;margin:8px 0 0}
+.status{font-family:var(--mono);font-size:12px;color:var(--muted);min-height:18px}
+.status.ok{color:var(--accent)} .status.warn{color:#ffc35b} .status.err{color:var(--danger)}
+.bar{height:6px;background:#0f1114;border-radius:6px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s linear}
+.cmp{position:relative}
+.cmp .after{position:absolute;inset:0;clip-path:inset(0 0 0 50%)}
+.cmp .split{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--accent);pointer-events:none}
+.cmp .split::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 14px/30px var(--sans);text-align:center}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp .t{position:absolute;top:10px;font:600 10px var(--mono);letter-spacing:.1em;background:rgba(0,0,0,.6);padding:4px 7px;border-radius:4px;line-height:1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:10px 0 60px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.step .n{font-family:var(--mono);color:var(--accent);font-size:13px}
+.step h4{margin:10px 0 6px;font-size:18px}
+.step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+h2.sec{font-size:clamp(26px,4vw,38px);letter-spacing:-.03em;margin:0 0 6px}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:20px 0 60px}
+@media(max-width:820px){.feat{grid-template-columns:1fr 1fr}}
+.feat div{background:var(--panel);padding:20px}
+.feat b{display:block;font-size:15px;margin-bottom:6px}
+.feat span{color:var(--muted);font-size:13.5px;line-height:1.5}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--accent);font-family:var(--mono)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);line-height:1.6;margin:10px 0 0;font-size:14.5px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:13px;margin-top:60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><i></i>Clearframe</div>
+    <nav><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="tag"><b>●</b> Client-side &nbsp;/&nbsp; No upload &nbsp;/&nbsp; Free</div>
+    <h1><span>Veo</span> Watermark Remover<br>free, right in your browser</h1>
+    <p>Drop a Veo 3 or Gemini video. Clearframe finds the corner logo, rebuilds the pixels underneath frame by frame, and hands you back a clean file — all inside your browser.</p>
+  </section>
+
+  <section class="station" id="tool">
+    <div class="station-top">
+      <div class="tag"><b>■</b> Station &nbsp;/&nbsp; Video watermark removal</div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept="video/mp4,video/quicktime,video/webm,video/*" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0l-4 4m4-4l4 4"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+      <div class="big">Drop a video here or click to upload</div>
+      <div class="sub">MP4, MOV or WebM from Gemini / Veo</div>
+      <div class="lock">🔒 PROCESSED LOCALLY · NEVER UPLOADED</div>
+    </label>
+
+    <div class="work hidden" id="work">
+      <div>
+        <div class="stage" id="stage">
+          <canvas id="preview"></canvas>
+          <div class="box" id="box"><span class="lbl" id="boxLbl">WATERMARK</span><span class="h" id="handle"></span></div>
+        </div>
+        <div class="cmp hidden" id="cmp">
+          <div class="stage"><video id="vBefore" muted playsinline loop></video>
+            <div class="after"><video id="vAfter" muted playsinline loop></video></div>
+            <div class="split" id="split"></div>
+            <span class="t" style="left:10px">ORIGINAL</span><span class="t" style="right:10px">CLEAN</span>
+            <input type="range" id="slider" min="0" max="100" value="50" aria-label="Compare original and clean">
+          </div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card">
+          <h3>Clip</h3>
+          <div class="kv">Resolution <b id="mRes">—</b></div>
+          <div class="kv">Duration <b id="mDur">—</b></div>
+          <div class="kv">Detection <b id="mDet">—</b></div>
+        </div>
+        <div class="card" id="cfg">
+          <h3>Target</h3>
+          <div class="seg">
+            <button data-p="auto" class="on">Auto</button>
+            <button data-p="veo">Veo text</button>
+            <button data-p="gem">Gemini ✦</button>
+          </div>
+          <p class="hint">Drag the green box to fine-tune, pull the corner to resize. Moving it switches to manual box mode.</p>
+        </div>
+        <div class="card">
+          <button class="btn" id="go">Remove watermark</button>
+          <div class="bar"><i id="prog"></i></div>
+          <p class="hint" id="eta">Runs in real time — an 8-second clip takes about 8 seconds. Keep this tab open.</p>
+          <a class="btn hidden" id="dl" style="margin-top:10px">Download clean video</a>
+          <button class="btn ghost" id="again" style="margin-top:10px">Use another video</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="tag"><b>■</b> Reel / Workflow</div>
+    <h2 class="sec">Three steps, zero uploads</h2>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h4>Drop your clip</h4><p>Pick a video you generated with Gemini or Veo. It's opened straight from your disk — nothing goes over the network.</p></div>
+      <div class="step"><div class="n">02</div><h4>Auto-detect</h4><p>Clearframe samples frames across the clip and looks for the overlay that never moves while the scene does. That's the watermark.</p></div>
+      <div class="step"><div class="n">03</div><h4>Rebuild & download</h4><p>Every frame gets the masked pixels reconstructed from their surroundings, with the original audio kept. Compare, then save.</p></div>
+    </div>
+
+    <div class="tag"><b>■</b> Reel / Specs</div>
+    <h2 class="sec">Built for short AI clips</h2>
+    <div class="feat">
+      <div><b>100% free</b><span>No credits, no sign-up, no limits.</span></div>
+      <div><b>Private</b><span>Processing happens on your device. No servers, no logs.</span></div>
+      <div><b>Auto detection</b><span>Temporal analysis finds the static logo, even on busy scenes.</span></div>
+      <div><b>Audio kept</b><span>Your soundtrack is carried into the output file.</span></div>
+      <div><b>Full resolution</b><span>No cropping, no downscaling.</span></div>
+      <div><b>Manual mode</b><span>Drag a box over any corner logo if auto misses.</span></div>
+      <div><b>Before / after</b><span>Swipe a slider to check the result.</span></div>
+      <div><b>No install</b><span>Works in desktop Chrome, Edge and Firefox.</span></div>
+    </div>
+  </section>
+
+  <section id="about" style="margin-bottom:60px">
+    <div class="tag"><b>■</b> Guide</div>
+    <h2 class="sec">Remove the Veo 3 watermark without uploading</h2>
+    <div class="steps" style="grid-template-columns:1fr 1fr;margin-bottom:0">
+      <div class="step"><h4>What is the Veo watermark?</h4><p>Videos generated with Google Veo 3 and the Gemini app carry a small visible logo in the bottom-right corner — a "Veo" text mark or the Gemini sparkle. Clearframe is a free Veo watermark remover that cleans that corner on every frame so your clip is ready for Shorts, Reels, X or an edit timeline.</p></div>
+      <div class="step"><h4>Why a browser-based remover?</h4><p>Most online watermark removers make you upload your video, wait in a queue and buy credits. This Gemini video watermark remover runs locally with your browser's own video engine: nothing is uploaded, there are no limits, and an 8-second Veo clip is done in about 8 seconds.</p></div>
+      <div class="step"><h4>Works with Veo 3, Veo 3.1 and Gemini</h4><p>Auto-detection looks for the overlay that stays fixed while the scene moves, so it handles text and logo marks at 720p, 1080p and vertical 9:16 clips. If a clip is very static, pick the Veo or Gemini preset or drag the box yourself.</p></div>
+      <div class="step"><h4>Tips for the cleanest result</h4><p>Use the original download from Gemini or Flow rather than a re-compressed copy, keep the box tight around the logo, and use Chrome or Edge on desktop for MP4 output. Busy textures behind the logo are rebuilt from the surrounding pixels.</p></div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="tag"><b>■</b> FAQ</div>
+    <h2 class="sec" style="margin-bottom:18px">Questions</h2>
+    <details><summary>How does it work?</summary><p>It grabs a dozen frames spread across your clip and measures which pixels keep the same sharp edges while everything else changes. Those pixels form the watermark mask. During export each frame is redrawn and the masked area is filled by diffusing colour in from the surrounding pixels, with a touch of grain so it blends in.</p></details>
+    <details><summary>Is this Veo watermark remover free?</summary><p>Yes. It is completely free with no sign-up, credits or limits, because all processing runs in your browser.</p></details>
+    <details><summary>Does it work with Veo 3 and Gemini videos?</summary><p>Yes. It auto-detects the Veo text watermark and the Gemini sparkle logo in the corner, and has presets for both.</p></details>
+    <details><summary>Is my video uploaded anywhere?</summary><p>No. The page reads the file locally and records the cleaned result in memory. Close the tab and it's gone.</p></details>
+    <details><summary>Why does it take as long as the clip?</summary><p>The export plays the clip once in the background and records the cleaned frames plus audio as it goes. Veo clips are short, so it's usually a few seconds.</p></details>
+    <details><summary>What format do I get?</summary><p>MP4 on browsers that can record it (recent Chrome / Edge), otherwise WebM. Both upload fine to X, YouTube and Instagram — if one complains, run it through a converter.</p></details>
+    <details><summary>Does this remove SynthID?</summary><p>No. Google also embeds an invisible SynthID watermark in the pixels themselves; this tool only cleans the visible corner logo. Please label AI-generated content where platforms ask you to.</p></details>
+    <details><summary>Detection says "low" — what now?</summary><p>That happens on very static shots or heavily re-encoded files. Pick the Veo or Gemini preset, or drag the box over the logo yourself, then hit remove.</p></details>
+  </section>
+
+  <footer><span>© Clearframe — runs entirely in your browser.</span><span>Only process videos you own or have rights to edit.</span></footer>
+</div>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const fileIn=$('file'),drop=$('drop'),work=$('work'),preview=$('preview'),pctx=preview.getContext('2d',{willReadFrequently:true});
+const box=$('box'),handle=$('handle'),stage=$('stage'),statusEl=$('status');
+let file,url,W=0,H=0,dur=0,rect=null,mask=null,mode='auto',detected=null,outURL=null,busy=false;
+
+const setStatus=(t,c='')=>{statusEl.textContent=t;statusEl.className='status '+c};
+
+// ---------- file intake ----------
+// accept drops anywhere on the page so a near-miss doesn't open the video in the tab
+let dragDepth=0;
+addEventListener('dragenter',ev=>{ev.preventDefault();dragDepth++;if(!busy&&!drop.classList.contains('hidden'))drop.classList.add('over')});
+addEventListener('dragover',ev=>ev.preventDefault());
+addEventListener('dragleave',()=>{if(--dragDepth<=0){dragDepth=0;drop.classList.remove('over')}});
+addEventListener('drop',ev=>{ev.preventDefault();dragDepth=0;drop.classList.remove('over');
+  if(busy)return;const f=[...ev.dataTransfer.files].find(f=>f.type.startsWith('video/')||/\.(mp4|mov|webm|m4v)$/i.test(f.name));
+  if(f)load(f);else if(ev.dataTransfer.files.length)setStatus('That is not a video file.','err')});
+drop.tabIndex=0;drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fileIn.click()}});
+fileIn.addEventListener('change',()=>{if(fileIn.files[0])load(fileIn.files[0])});
+$('again').onclick=()=>{if(busy)return;reset()};
+
+function reset(){
+  work.classList.add('hidden');drop.classList.remove('hidden');$('cmp').classList.add('hidden');stage.classList.remove('hidden');
+  $('dl').classList.add('hidden');$('prog').style.width='0';fileIn.value='';setStatus('');
+  if(url)URL.revokeObjectURL(url);if(outURL)URL.revokeObjectURL(outURL);url=outURL=null;
+}
+
+function makeVideo(src){const v=document.createElement('video');v.src=src;v.muted=true;v.playsInline=true;v.preload='auto';return v}
+const once=(el,ev)=>new Promise((res,rej)=>{el.addEventListener(ev,res,{once:true});el.addEventListener('error',()=>rej(el.error||new Error('Video error')),{once:true})});
+async function seek(v,t){v.currentTime=t;await once(v,'seeked')}
+
+async function load(f){
+  file=f;url=URL.createObjectURL(f);setStatus('Reading video…');
+  const v=makeVideo(url);
+  try{await once(v,'loadedmetadata')}catch(e){setStatus('This browser cannot decode that file. Try an MP4 in Chrome.','err');return}
+  W=v.videoWidth;H=v.videoHeight;dur=v.duration;
+  if(!W||!isFinite(dur)){setStatus('Could not read this video.','err');return}
+  preview.width=W;preview.height=H;
+  $('mRes').textContent=W+'×'+H;$('mDur').textContent=dur.toFixed(1)+'s';
+  drop.classList.add('hidden');work.classList.remove('hidden');$('dl').classList.add('hidden');$('cmp').classList.add('hidden');stage.classList.remove('hidden');
+  setStatus('Detecting watermark…');
+  detected=await detect(v);
+  await seek(v,Math.min(dur*0.3,dur-0.05));pctx.drawImage(v,0,0,W,H);
+  setMode('auto');
+}
+
+// ---------- presets ----------
+function preset(p){
+  const s=Math.min(W,H);
+  if(p==='veo'){const w=Math.round(s*0.16),h=Math.round(s*0.075);return{x:W-w-Math.round(s*0.025),y:H-h-Math.round(s*0.02),w,h}}
+  const d=Math.round(s*0.09);return{x:W-d-Math.round(s*0.03),y:H-d-Math.round(s*0.03),w:d,h:d};
+}
+function setMode(p){
+  mode=p;document.querySelectorAll('.seg button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  if(p==='auto'&&detected&&detected.ok){rect=detected.rect;mask=detected.mask;$('boxLbl').textContent='AUTO MASK';setStatus('Watermark found.','ok')}
+  else{
+    if(p==='auto'){p='veo';setStatus('Low confidence — using Veo preset. Adjust the box if needed.','warn')}
+    else if(p!=='manual')setStatus('Preset applied.','');
+    if(p!=='manual')rect=preset(p);
+    mask=null;$('boxLbl').textContent=p==='manual'?'MANUAL':p==='veo'?'VEO PRESET':'GEMINI PRESET';
+  }
+  $('mDet').textContent=detected&&detected.ok?('found · '+Math.round(detected.conf*100)+'%'):'low';
+  drawBox();
+}
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{if(!busy)setMode(b.dataset.p)});
+
+function drawBox(){
+  const k=stage.clientWidth/W;
+  Object.assign(box.style,{left:rect.x*k+'px',top:rect.y*k+'px',width:rect.w*k+'px',height:rect.h*k+'px'});
+}
+addEventListener('resize',()=>{if(rect&&W)drawBox()});
+
+// drag / resize
+let drag=null;
+box.addEventListener('pointerdown',e=>{if(busy)return;e.preventDefault();box.setPointerCapture(e.pointerId);
+  drag={resize:e.target===handle,sx:e.clientX,sy:e.clientY,r:{...rect}}});
+box.addEventListener('pointermove',e=>{if(!drag)return;const k=stage.clientWidth/W;const dx=(e.clientX-drag.sx)/k,dy=(e.clientY-drag.sy)/k;
+  if(mode!=='manual'){mode='manual';mask=null;document.querySelectorAll('.seg button').forEach(b=>b.classList.remove('on'));$('boxLbl').textContent='MANUAL'}
+  const r=drag.r;
+  if(drag.resize){rect.w=Math.max(8,Math.min(W-r.x,r.w+dx));rect.h=Math.max(8,Math.min(H-r.y,r.h+dy))}
+  else{rect.x=Math.max(0,Math.min(W-r.w,r.x+dx));rect.y=Math.max(0,Math.min(H-r.h,r.y+dy))}
+  rect={x:Math.round(rect.x),y:Math.round(rect.y),w:Math.round(rect.w),h:Math.round(rect.h)};drawBox()});
+box.addEventListener('pointerup',()=>drag=null);
+
+// ---------- detection: static edges across frames ----------
+async function detect(v){
+  const rw=Math.round(W*0.4),rh=Math.round(H*0.32),rx=W-rw,ry=H-rh,N=rw*rh;
+  const c=document.createElement('canvas');c.width=rw;c.height=rh;const cx=c.getContext('2d',{willReadFrequently:true});
+  const F=12,gradSum=new Float32Array(N),lumSum=new Float32Array(N),lumSq=new Float32Array(N),lum=new Float32Array(N);
+  for(let f=0;f<F;f++){
+    await seek(v,dur*(0.04+0.92*f/(F-1)));
+    cx.drawImage(v,rx,ry,rw,rh,0,0,rw,rh);const d=cx.getImageData(0,0,rw,rh).data;
+    for(let i=0;i<N;i++){const L=0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2];lum[i]=L;lumSum[i]+=L;lumSq[i]+=L*L}
+    for(let y=1;y<rh-1;y++)for(let x=1;x<rw-1;x++){const i=y*rw+x;
+      const gx=lum[i+1]-lum[i-1],gy=lum[i+rw]-lum[i-rw];gradSum[i]+=Math.min(1,Math.hypot(gx,gy)/60)}
+  }
+  // score: edges that are present in (almost) every frame
+  const score=new Float32Array(N);let mean=0;
+  for(let i=0;i<N;i++){const g=gradSum[i]/F;const m=lumSum[i]/F;const sd=Math.sqrt(Math.max(0,lumSq[i]/F-m*m));
+    score[i]=g*g*(1-Math.min(1,sd/45));mean+=score[i]}
+  mean/=N;let sd=0;for(let i=0;i<N;i++)sd+=(score[i]-mean)**2;sd=Math.sqrt(sd/N);
+  const th=Math.max(0.18,mean+3*sd);
+  const hit=new Uint8Array(N);let cnt=0;
+  for(let y=2;y<rh-2;y++)for(let x=2;x<rw-2;x++){const i=y*rw+x;if(score[i]>th){hit[i]=1;cnt++}}
+  if(cnt<12)return{ok:false};
+  // group into clusters (dilate by ~1.2% of size), pick biggest cluster closest to the corner
+  const R=Math.max(3,Math.round(Math.min(W,H)*0.012));
+  const dil=dilate(hit,rw,rh,R);
+  const lab=new Int32Array(N);let best=null,id=0;const st=[];
+  for(let i=0;i<N;i++){if(!dil[i]||lab[i])continue;id++;let n=0,h=0,x0=rw,y0=rh,x1=0,y1=0;st.push(i);lab[i]=id;
+    while(st.length){const j=st.pop();n++;h+=hit[j];const x=j%rw,y=(j/rw)|0;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+      for(const k of [j-1,j+1,j-rw,j+rw]){if(k>=0&&k<N&&dil[k]&&!lab[k]&&Math.abs((k%rw)-x)<=1){lab[k]=id;st.push(k)}}}
+    const cxn=(x0+x1)/2/rw,cyn=(y0+y1)/2/rh;const val=h*(0.5+cxn)*(0.5+cyn);
+    if(h>=10&&(!best||val>best.val))best={id,h,val,x0,y0,x1,y1}}
+  if(!best)return{ok:false};
+  const bw=best.x1-best.x0,bh=best.y1-best.y0;
+  if(bw>rw*0.85||bh>rh*0.85)return{ok:false};
+  const conf=Math.min(1,best.h/cnt*1.1);
+  // final mask: hits of that cluster, dilated a bit + holes closed
+  const m0=new Uint8Array(N);for(let i=0;i<N;i++)if(hit[i]&&lab[i]===best.id)m0[i]=1;
+  const md=dilate(m0,rw,rh,Math.max(2,Math.round(R*0.8)));
+  const pad=4,x=Math.max(0,best.x0-pad),y=Math.max(0,best.y0-pad),x2=Math.min(rw-1,best.x1+pad),y2=Math.min(rh-1,best.y1+pad);
+  const r={x:rx+x,y:ry+y,w:x2-x+1,h:y2-y+1};
+  const mk=new Uint8Array(r.w*r.h);
+  for(let yy=0;yy<r.h;yy++)for(let xx=0;xx<r.w;xx++)mk[yy*r.w+xx]=md[(y+yy)*rw+(x+xx)];
+  // keep the bbox border unmasked so the fill has known pixels to pull from
+  const rr=expand(r,mk,3);
+  return{ok:conf>0.35,conf,rect:rr.rect,mask:rr.mask};
+}
+function dilate(src,w,h,r){
+  // separable box dilation
+  const tmp=new Uint8Array(w*h),out=new Uint8Array(w*h);
+  for(let y=0;y<h;y++){let run=-1e9;for(let x=0;x<w;x++){if(src[y*w+x])run=x;if(x-run<=r)tmp[y*w+x]=1}
+    run=1e9;for(let x=w-1;x>=0;x--){if(src[y*w+x])run=x;if(run-x<=r)tmp[y*w+x]=1}}
+  for(let x=0;x<w;x++){let run=-1e9;for(let y=0;y<h;y++){if(tmp[y*w+x])run=y;if(y-run<=r)out[y*w+x]=1}
+    run=1e9;for(let y=h-1;y>=0;y--){if(tmp[y*w+x])run=y;if(run-y<=r)out[y*w+x]=1}}
+  return out;
+}
+function expand(r,mk,p){
+  const x=Math.max(0,r.x-p),y=Math.max(0,r.y-p),x2=Math.min(W,r.x+r.w+p),y2=Math.min(H,r.y+r.h+p);
+  const nr={x,y,w:x2-x,h:y2-y},nm=new Uint8Array(nr.w*nr.h);
+  for(let yy=0;yy<r.h;yy++)for(let xx=0;xx<r.w;xx++)if(mk[yy*r.w+xx])nm[(yy+r.y-y)*nr.w+(xx+r.x-x)]=1;
+  for(let xx=0;xx<nr.w;xx++){nm[xx]=0;nm[(nr.h-1)*nr.w+xx]=0}
+  for(let yy=0;yy<nr.h;yy++){nm[yy*nr.w]=0;nm[yy*nr.w+nr.w-1]=0}
+  return{rect:nr,mask:nm};
+}
+
+// ---------- inpainting ----------
+// Coons-patch init from the bbox border, then Gauss-Seidel diffusion on masked pixels, then light grain.
+let work32=null;
+function inpaint(ctx,r,mk){
+  const img=ctx.getImageData(r.x,r.y,r.w,r.h),d=img.data,w=r.w,h=r.h,n=w*h;
+  if(!work32||work32.length<n*3)work32=new Float32Array(n*3);
+  const A=work32;
+  for(let i=0;i<n;i++){A[i*3]=d[i*4];A[i*3+1]=d[i*4+1];A[i*3+2]=d[i*4+2]}
+  const P=(x,y,c)=>A[(y*w+x)*3+c];
+  for(let y=1;y<h-1;y++){const v=y/(h-1);for(let x=1;x<w-1;x++){const i=y*w+x;if(!mk[i])continue;const u=x/(w-1);
+    for(let c=0;c<3;c++){
+      const L=P(0,y,c),R=P(w-1,y,c),T=P(x,0,c),B=P(x,h-1,c);
+      const val=(1-u)*L+u*R+(1-v)*T+v*B-((1-u)*(1-v)*P(0,0,c)+u*(1-v)*P(w-1,0,c)+(1-u)*v*P(0,h-1,c)+u*v*P(w-1,h-1,c));
+      A[i*3+c]=val}}}
+  const iters=Math.min(40,8+Math.round(Math.max(w,h)/6));
+  for(let it=0;it<iters;it++){
+    const fwd=it%2===0;
+    for(let yy=1;yy<h-1;yy++){const y=fwd?yy:h-1-yy;for(let xx=1;xx<w-1;xx++){const x=fwd?xx:w-1-xx;const i=y*w+x;if(!mk[i])continue;
+      const a=(i-1)*3,b=(i+1)*3,t=(i-w)*3,bo=(i+w)*3,o=i*3;
+      A[o]=(A[a]+A[b]+A[t]+A[bo])*0.25;A[o+1]=(A[a+1]+A[b+1]+A[t+1]+A[bo+1])*0.25;A[o+2]=(A[a+2]+A[b+2]+A[t+2]+A[bo+2])*0.25}}
+  }
+  for(let i=0;i<n;i++){if(!mk[i])continue;const g=(Math.random()-0.5)*5;
+    d[i*4]=A[i*3]+g;d[i*4+1]=A[i*3+1]+g;d[i*4+2]=A[i*3+2]+g}
+  ctx.putImageData(img,r.x,r.y);
+}
+
+// ---------- export ----------
+function pickMime(){
+  const c=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1,mp4a','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+  return c.find(m=>window.MediaRecorder&&MediaRecorder.isTypeSupported(m))||'';
+}
+$('go').onclick=async()=>{
+  if(busy||!rect)return;
+  if(!window.MediaRecorder||!HTMLCanvasElement.prototype.captureStream){setStatus('Your browser cannot record video. Use desktop Chrome or Edge.','err');return}
+  busy=true;$('go').disabled=true;$('dl').classList.add('hidden');setStatus('Cleaning frames…');
+  let r,mk;
+  if(mask){r=rect;mk=mask}else{const full=new Uint8Array(rect.w*rect.h).fill(1);const e=expand(rect,full,3);r=e.rect;mk=e.mask}
+  try{
+    const blob=await render(r,mk);
+    if(outURL)URL.revokeObjectURL(outURL);outURL=URL.createObjectURL(blob);
+    const ext=blob.type.includes('mp4')?'mp4':'webm';
+    const dl=$('dl');dl.href=outURL;dl.download=file.name.replace(/\.[^.]+$/,'')+'-clean.'+ext;dl.textContent='Download clean '+ext.toUpperCase()+' ('+(blob.size/1048576).toFixed(1)+' MB)';dl.classList.remove('hidden');
+    showCompare();setStatus('Done — watermark removed.','ok');
+  }catch(e){console.error(e);setStatus('Export failed: '+(e.message||e),'err')}
+  busy=false;$('go').disabled=false;
+};
+
+async function render(r,mk){
+  const v=makeVideo(url);v.muted=false;v.volume=1;
+  await once(v,'loadeddata');
+  const c=document.createElement('canvas');c.width=W;c.height=H;const cx=c.getContext('2d',{willReadFrequently:true});
+  const vs=c.captureStream(0),vt=vs.getVideoTracks()[0];
+  const tracks=[vt];let actx=null;
+  try{actx=new AudioContext();const src=actx.createMediaElementSource(v);const dest=actx.createMediaStreamDestination();src.connect(dest);
+    if(dest.stream.getAudioTracks()[0])tracks.push(dest.stream.getAudioTracks()[0]);if(actx.state==='suspended')await actx.resume()}catch(e){console.warn('no audio',e)}
+  const mime=pickMime();
+  const rec=new MediaRecorder(new MediaStream(tracks),{mimeType:mime||undefined,videoBitsPerSecond:Math.round(Math.min(40e6,W*H*30*0.18)),audioBitsPerSecond:192000});
+  const chunks=[];rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  const done=new Promise(res=>rec.onstop=res);
+  const frame=()=>{cx.drawImage(v,0,0,W,H);inpaint(cx,r,mk);vt.requestFrame&&vt.requestFrame();$('prog').style.width=Math.min(100,v.currentTime/dur*100)+'%'};
+  await seek(v,0);frame();
+  rec.start(250);
+  let raf;
+  if('requestVideoFrameCallback' in v){const cb=()=>{frame();if(!v.ended)v.requestVideoFrameCallback(cb)};v.requestVideoFrameCallback(cb)}
+  else{const loop=()=>{frame();if(!v.ended)raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)}
+  await v.play();
+  await once(v,'ended');cancelAnimationFrame(raf);frame();
+  await new Promise(r=>setTimeout(r,200));rec.stop();await done;
+  vt.stop();if(actx)actx.close();
+  $('prog').style.width='100%';
+  return new Blob(chunks,{type:(mime||'video/webm').split(';')[0]});
+}
+
+function showCompare(){
+  stage.classList.add('hidden');$('cmp').classList.remove('hidden');
+  const a=$('vBefore'),b=$('vAfter');a.src=url;b.src=outURL;
+  const sync=()=>{if(Math.abs(b.currentTime-a.currentTime)>0.08)b.currentTime=a.currentTime};
+  a.ontimeupdate=sync;a.play().catch(()=>{});b.play().catch(()=>{});
+  const s=$('slider');s.oninput=()=>{b.parentElement.style.clipPath=`inset(0 0 0 ${s.value}%)`;$('split').style.left=s.value+'%'};
+}
+})();
+</script>
+</body>
+</html>
